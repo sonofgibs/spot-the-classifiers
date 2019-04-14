@@ -1,1 +1,1 @@
-# spot_the_classifiers
+# spot-the-classifiers
