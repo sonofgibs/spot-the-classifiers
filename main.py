@@ -67,7 +67,7 @@ def create_scatter_plot(yaxis_column, xaxis_column, filename, ylabel):
 
 
 def main():
-    audio_data = []
+    '''audio_data = []
     utils.read_file_to_table("audio_data.csv", audio_data)
     print("done reading")
     headers = ["Acousticness", "Danceability", "Duration", "Energy", "Instrumentalness", "Key",
@@ -76,7 +76,7 @@ def main():
         print(i)
         filename = headers[i] + ".pdf"
         create_scatter_plot(utils.get_column(audio_data, i), utils.get_column(
-            audio_data, 13), filename, headers[i])
+            audio_data, 13), filename, headers[i])'''
 
     # kNN classifier to predict popularity (index 13)
     # using: acousticness (0), danceability (1), energy (3), instrumentalness (4), 
@@ -88,10 +88,10 @@ def main():
     num_correct = 0
     for i in range(0, 10):
         train, test = utils.set_up_train_test(i, folds)
-        actual_popularities = [x[len(x) - 1] for x in test]
+        actual_popularities = [utils.discretize_popularity(x[-1]) for x in test]
         predicted_popularities = utils.knn_classifier(train, test)
         for i in range(0, len(test)):
-            if actual_popularities[i] == predicted_popularities[i]:
+            if actual_popularities[i] == utils.discretize_popularity(predicted_popularities[i]):
                 num_correct += 1
         print(num_correct)
     accuracy = num_correct / len(trimmed_data)

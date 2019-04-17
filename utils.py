@@ -132,3 +132,25 @@ def knn_classifier(train, test):
         predicted_class = compute_class_knn(instance, train)
         predicted_classes.append(predicted_class)
     return predicted_classes
+
+def discretize_popularity(val):
+    if val <= 10:
+        return 1
+    elif val <= 20:
+        return 2
+    elif val <= 30:
+        return 3
+    elif val <= 40:
+        return 4
+    elif val <= 50:
+        return 5
+    elif val <= 60:
+        return 6
+    elif val <= 70:
+        return 7
+    elif val <= 80:
+        return 8
+    elif val <= 90:
+        return 9
+    else:
+        return 10
