@@ -82,12 +82,30 @@ def create_scatter_plot(yaxis_column, xaxis_column, filename, titlename, yaxis_l
 
 
 def main():
-    audio_data = []
-    utils.read_file_to_table("audio_data.csv", audio_data)
-    print("done")
-    create_scatter_plot(utils.get_column(audio_data, 0), utils.get_column(
-        audio_data, 13), "scatter_plot.pdf", "Popularity", "Acousticness")
+    #audio_data = []
+    #utils.read_file_to_table("audio_data.csv", audio_data)
+    #print("done")
+    #create_scatter_plot(utils.get_column(audio_data, 0), utils.get_column(
+    #    audio_data, 13), "scatter_plot.pdf", "Popularity", "Acousticness")
 
-
+    # kNN classifier to predict popularity (index 13)
+    # using: acousticness (0), danceability (1), energy (3), instrumentalness (4), 
+    # liveness (6), speechiness (9), valence (12)
+    trimmed_data = []
+    utils.read_file_to_table("small_audio_data.csv", trimmed_data, [0, 1, 3, 4, 6, 9, 12, 13])
+    # generate 10 stratified cross folds
+    folds = utils.stratified_cross_folds(trimmed_data, 10)
+    num_correct = 0
+    for i in range(0, 10):
+        train, test = utils.set_up_train_test(i, folds)
+        actual_popularities = [x[len(x) - 1] for x in test]
+        predicted_popularities = utils.knn_classifier(train, test)
+        for i in range(0, len(test)):
+            if actual_popularities[i] == predicted_popularities[i]:
+                num_correct += 1
+        print(num_correct)
+    accuracy = num_correct / len(trimmed_data)
+    print("Accuracy: " + str(accuracy * 100))
+        
 if __name__ == "__main__":
     main()
