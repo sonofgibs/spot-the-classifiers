@@ -73,16 +73,16 @@ def main():
     headers = ["Acousticness", "Danceability", "Duration", "Energy", "Instrumentalness", "Key",
                "Liveness", "Loudness", "Mode", "Speechiness", "Tempo", "Time Signature", "Valence"]
     for i in range(0, 13):
-        print(i)
         filename = headers[i] + ".pdf"
         create_scatter_plot(utils.get_column(audio_data, i), utils.get_column(
             audio_data, 13), filename, headers[i])
 
     # kNN classifier to predict popularity (index 13)
-    # using: acousticness (0), danceability (1), energy (3), instrumentalness (4), 
+    # using: acousticness (0), danceability (1), energy (3), instrumentalness (4),
     # liveness (6), speechiness (9), valence (12)
     trimmed_data = []
-    utils.read_file_to_table("small_audio_data.csv", trimmed_data, [0, 1, 3, 4, 6, 9, 12, 13])
+    utils.read_file_to_table("small_audio_data.csv", trimmed_data, [
+                             0, 1, 3, 4, 6, 9, 12, 13])
     # generate 10 stratified cross folds
     folds = utils.stratified_cross_folds(trimmed_data, 10)
     num_correct = 0
@@ -96,6 +96,7 @@ def main():
         print(num_correct)
     accuracy = num_correct / len(trimmed_data)
     print("Accuracy: " + str(accuracy * 100))
+
 
 if __name__ == "__main__":
     main()
