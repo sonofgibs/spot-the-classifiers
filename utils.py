@@ -1,3 +1,5 @@
+import random
+
 '''
 FROM CLASS
 Gets the data from a single attribute
@@ -51,3 +53,11 @@ def convert_to_numeric(values):
             values[i] = numeric_val
         except ValueError:
             pass
+
+def randomize_table(table):
+    randomized = table[:]
+    n = len(table)
+    for i in range(n):
+        j = random.randrange(0, n)
+        randomized[i], randomized[j] = randomized[j], randomized[i]
+    return randomized
