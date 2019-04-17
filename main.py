@@ -58,21 +58,21 @@ def create_scatter_plot(yaxis_column, xaxis_column, filename, titlename, yaxis_l
     xvalues = convert_to_numeric2(xaxis_column)
     yvalues = convert_to_numeric2(yaxis_column)
     plt.plot(xvalues, yvalues, "b.")
-    b = get_coefficient(np.array(xvalues), np.array(yvalues))
-    # predicted response vector
-    # b = b[0], m = b[1]
-    yprediction = b[0] + b[1]*np.array(xvalues)
-    # plotting the regression line
-    plt.plot(xvalues, yprediction, color="r")
+    # b = get_coefficient(np.array(xvalues), np.array(yvalues))
+    # # predicted response vector
+    # # b = b[0], m = b[1]
+    # yprediction = b[0] + b[1]*np.array(xvalues)
+    # # plotting the regression line
+    # plt.plot(xvalues, yprediction, color="r")
 
-    # find correlation coefficient and covariance
-    correlation_coefficient = np.corrcoef(xvalues, yvalues)[0, 1]
-    covariance = np.cov(xvalues, yvalues)[0, 1]
+    # # find correlation coefficient and covariance
+    # correlation_coefficient = np.corrcoef(xvalues, yvalues)[0, 1]
+    # covariance = np.cov(xvalues, yvalues)[0, 1]
 
-    # add annotation
-    ax = plt.gca()
-    ax.annotate("corr=%.2f, cov=%.2f" % (correlation_coefficient, covariance), xy=(
-        .60, .95), xycoords='axes fraction', color="r", bbox=dict(boxstyle="round", fc="1", color="r"))
+    # # add annotation
+    # ax = plt.gca()
+    # ax.annotate("corr=%.2f, cov=%.2f" % (correlation_coefficient, covariance), xy=(
+    #     .60, .95), xycoords='axes fraction', color="r", bbox=dict(boxstyle="round", fc="1", color="r"))
     plt.title(titlename + " vs Popularity")
     plt.grid(True)
     plt.ylabel(yaxis_label)
@@ -85,8 +85,8 @@ def main():
     audio_data = []
     utils.read_file_to_table("audio_data.csv", audio_data)
     print("done")
-    create_scatter_plot(utils.get_column(audio_data, 3), utils.get_column(
-        audio_data, 16), "scatter_plot.pdf", "Popularity", "Acousticness")
+    create_scatter_plot(utils.get_column(audio_data, 0), utils.get_column(
+        audio_data, 13), "scatter_plot.pdf", "Popularity", "Acousticness")
 
 
 if __name__ == "__main__":
