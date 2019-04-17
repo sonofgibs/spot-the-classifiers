@@ -53,15 +53,15 @@ Parameter step: the step of the program to plot
 '''
 
 
-def create_scatter_plot(yaxis_column, xaxis_column, filename, ylabel):
+def create_scatter_plot(xaxis_column, yaxis_column, filename, xlabel):
     plt.figure()
     xvalues = convert_to_numeric2(xaxis_column)
     yvalues = convert_to_numeric2(yaxis_column)
     plt.scatter(xvalues, yvalues, c="b")
     plt.grid(True)
-    plt.ylabel(ylabel)
-    plt.xlabel("Popularity")
-    plt.title(ylabel + " vs Popularity")
+    plt.xlabel(xlabel)
+    plt.ylabel("Popularity")
+    plt.title(xlabel + " vs Popularity")
     plt.savefig(filename)
     plt.close()
 
