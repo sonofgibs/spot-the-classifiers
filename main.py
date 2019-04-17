@@ -14,7 +14,7 @@ def convert_to_numeric2(table):
     return_table = []
     index = 0
     for value in table:
-        return_table.append(int(float(table[index])))
+        return_table.append(float(table[index]))
         index += 1
     return return_table
 
@@ -53,40 +53,30 @@ Parameter step: the step of the program to plot
 '''
 
 
-def create_scatter_plot(yaxis_column, xaxis_column, filename, titlename, yaxis_label):
+def create_scatter_plot(yaxis_column, xaxis_column, filename, ylabel):
     plt.figure()
     xvalues = convert_to_numeric2(xaxis_column)
     yvalues = convert_to_numeric2(yaxis_column)
-    plt.plot(xvalues, yvalues, "b.")
-    # b = get_coefficient(np.array(xvalues), np.array(yvalues))
-    # # predicted response vector
-    # # b = b[0], m = b[1]
-    # yprediction = b[0] + b[1]*np.array(xvalues)
-    # # plotting the regression line
-    # plt.plot(xvalues, yprediction, color="r")
-
-    # # find correlation coefficient and covariance
-    # correlation_coefficient = np.corrcoef(xvalues, yvalues)[0, 1]
-    # covariance = np.cov(xvalues, yvalues)[0, 1]
-
-    # # add annotation
-    # ax = plt.gca()
-    # ax.annotate("corr=%.2f, cov=%.2f" % (correlation_coefficient, covariance), xy=(
-    #     .60, .95), xycoords='axes fraction', color="r", bbox=dict(boxstyle="round", fc="1", color="r"))
-    plt.title(titlename + " vs Popularity")
+    plt.scatter(xvalues, yvalues, c="b")
     plt.grid(True)
-    plt.ylabel(yaxis_label)
-    plt.xlabel(titlename)
+    plt.ylabel(ylabel)
+    plt.xlabel("Popularity")
+    plt.title(ylabel + " vs Popularity")
     plt.savefig(filename)
     plt.close()
 
 
 def main():
-    #audio_data = []
-    #utils.read_file_to_table("audio_data.csv", audio_data)
-    #print("done")
-    #create_scatter_plot(utils.get_column(audio_data, 0), utils.get_column(
-    #    audio_data, 13), "scatter_plot.pdf", "Popularity", "Acousticness")
+    audio_data = []
+    utils.read_file_to_table("audio_data.csv", audio_data)
+    print("done reading")
+    headers = ["Acousticness", "Danceability", "Duration", "Energy", "Instrumentalness", "Key",
+               "Liveness", "Loudness", "Mode", "Speechiness", "Tempo", "Time Signature", "Valence"]
+    for i in range(0, 13):
+        print(i)
+        filename = headers[i] + ".pdf"
+        create_scatter_plot(utils.get_column(audio_data, i), utils.get_column(
+            audio_data, 13), filename, headers[i])
 
     # kNN classifier to predict popularity (index 13)
     # using: acousticness (0), danceability (1), energy (3), instrumentalness (4), 
@@ -106,6 +96,6 @@ def main():
         print(num_correct)
     accuracy = num_correct / len(trimmed_data)
     print("Accuracy: " + str(accuracy * 100))
-        
+
 if __name__ == "__main__":
     main()
