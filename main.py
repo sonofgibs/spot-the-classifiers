@@ -1,7 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import utils
-
+import numpy as np
+import pandas as pd
+from sklearn.metrics import accuracy_score
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
 
 '''
 Converts string values to usable numeric values
@@ -67,7 +71,7 @@ def create_scatter_plot(xaxis_column, yaxis_column, filename, xlabel):
 
 
 def main():
-    audio_data = []
+    '''audio_data = []
     utils.read_file_to_table("audio_data.csv", audio_data)
     print("done reading")
     headers = ["Acousticness", "Danceability", "Duration", "Energy", "Instrumentalness", "Key",
@@ -75,12 +79,13 @@ def main():
     for i in range(0, 13):
         filename = headers[i] + ".pdf"
         create_scatter_plot(utils.get_column(audio_data, i), utils.get_column(
-            audio_data, 13), filename, headers[i])
+            audio_data, 13), filename, headers[i])'''
 
     # kNN classifier to predict popularity (index 13)
     # using: acousticness (0), danceability (1), energy (3), instrumentalness (4),
     # liveness (6), speechiness (9), valence (12)
-    trimmed_data = []
+    # TODO: normalize and include duration, tempo, loudness
+    '''trimmed_data = []
     utils.read_file_to_table("small_audio_data.csv", trimmed_data, [
                              0, 1, 3, 4, 6, 9, 12, 13])
     # generate 10 stratified cross folds
@@ -95,8 +100,23 @@ def main():
                 num_correct += 1
         print(num_correct)
     accuracy = num_correct / len(trimmed_data)
-    print("Accuracy: " + str(accuracy * 100))
+    print("Accuracy: " + str(accuracy * 100))'''
 
+    # compare with scikit-learn kNN  
+    df = pd.read_csv("small_audio_data.csv")
+    X = np.array(df.ix[:, 0:12]) # features
+    y = np.array(df.ix[:, 13]) # class label (popularity)
+
+    # discretize popularity
+    y = [utils.discretize_popularity(val) for val in y]
+
+    # split into train and test
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
+
+    knn = KNeighborsClassifier(n_neighbors=5)
+    knn.fit(X_train, y_train)
+    prediction = knn.predict(X_test)
+    print("Accuracy: " + str(round(accuracy_score(y_test, prediction) * 100, 2)) + "%")
 
 if __name__ == "__main__":
     main()

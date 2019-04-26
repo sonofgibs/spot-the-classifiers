@@ -113,6 +113,7 @@ def compute_distance(v1, v2):
     dist = math.sqrt(sum([(v1[i] - v2[i]) ** 2 for i in range(len(v1))]))
     return dist
 
+# compare with 5 nearest neighbors (k=5)
 def compute_class_knn(instance, vals):
     distances_and_label = [[compute_distance(val[:-1], instance[:-1]), val[-1]] for val in vals]
     distances_and_label.sort(key=lambda x: x[0]) # Sort by distance
