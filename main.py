@@ -71,21 +71,21 @@ def create_scatter_plot(xaxis_column, yaxis_column, filename, xlabel):
 
 
 def main():
-    '''audio_data = []
-    utils.read_file_to_table("audio_data.csv", audio_data)
+    audio_data = []
+    utils.read_file_to_table("small_audio_data.csv", audio_data)
     print("done reading")
     headers = ["Acousticness", "Danceability", "Duration", "Energy", "Instrumentalness", "Key",
                "Liveness", "Loudness", "Mode", "Speechiness", "Tempo", "Time Signature", "Valence"]
     for i in range(0, 13):
         filename = headers[i] + ".pdf"
         create_scatter_plot(utils.get_column(audio_data, i), utils.get_column(
-            audio_data, 13), filename, headers[i])'''
+            audio_data, 13), filename, headers[i])
 
     # kNN classifier to predict popularity (index 13)
     # using: acousticness (0), danceability (1), energy (3), instrumentalness (4),
     # liveness (6), speechiness (9), valence (12)
     # TODO: normalize and include duration, tempo, loudness
-    '''trimmed_data = []
+    trimmed_data = []
     utils.read_file_to_table("small_audio_data.csv", trimmed_data, [
                              0, 1, 3, 4, 6, 9, 12, 13])
     # generate 10 stratified cross folds
@@ -100,7 +100,7 @@ def main():
                 num_correct += 1
         print(num_correct)
     accuracy = num_correct / len(trimmed_data)
-    print("Accuracy: " + str(accuracy * 100))'''
+    print("Accuracy: " + str(accuracy * 100))
 
     # compare with scikit-learn kNN  
     df = pd.read_csv("small_audio_data.csv")
@@ -116,7 +116,7 @@ def main():
     knn = KNeighborsClassifier(n_neighbors=5)
     knn.fit(X_train, y_train)
     prediction = knn.predict(X_test)
-    print("Accuracy: " + str(round(accuracy_score(y_test, prediction) * 100, 2)) + "%")
+    print("Scikit-learn accuracy: " + str(round(accuracy_score(y_test, prediction) * 100, 2)) + "%")
 
 if __name__ == "__main__":
     main()
