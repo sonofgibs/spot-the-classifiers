@@ -12,9 +12,7 @@ Converts string values to usable numeric values
 Parameter table: a single column table to be converted
 Returns return_table: a table of converted values
 '''
-
-
-def convert_to_numeric2(table):
+def convert_to_numeric(table):
     return_table = []
     index = 0
     for value in table:
@@ -29,14 +27,11 @@ Parameter xvalues: the table of values for the x axis
 Parameter yvalues: the table of values of the y axis
 Returns (b1,b2): the slope and y intercept of the linear regression
 '''
-
-
 def get_coefficient(xvalues, yvalues):
     size = np.size(xvalues)
     # find the mean of xvalues and yvalues
     xmean = np.mean(xvalues)
     ymean = np.mean(yvalues)
-
     # calculate the cross-deviation and deviation about x
     cross_deviation = np.sum(yvalues*xvalues) - size*ymean*xmean
     xdeviation = np.sum(xvalues*xvalues) - size*xmean*xmean
@@ -55,12 +50,10 @@ Parameter titlename: the title for the graph
 Parameter yaxis_label: the label for the y axis
 Parameter step: the step of the program to plot
 '''
-
-
 def create_scatter_plot(xaxis_column, yaxis_column, filename, xlabel):
     plt.figure()
-    xvalues = convert_to_numeric2(xaxis_column)
-    yvalues = convert_to_numeric2(yaxis_column)
+    xvalues = convert_to_numeric(xaxis_column)
+    yvalues = convert_to_numeric(yaxis_column)
     plt.scatter(xvalues, yvalues, c="b")
     plt.grid(True)
     plt.xlabel(xlabel)
@@ -82,12 +75,25 @@ def main():
             audio_data, 13), filename, headers[i])'''
 
     # kNN classifier to predict popularity (index 13)
-    # using: acousticness (0), danceability (1), energy (3), instrumentalness (4),
-    # liveness (6), speechiness (9), valence (12)
-    # TODO: normalize and include duration, tempo, loudness
+    # using: acousticness (0), danceability (1), duration (2), energy (3), instrumentalness (4),
+    # liveness (6), loudness (7), speechiness (9), tempo (10), valence (12)
     trimmed_data = []
-    utils.read_file_to_table("small_audio_data.csv", trimmed_data, [
-                             0, 1, 3, 4, 6, 9, 12, 13])
+    utils.read_file_to_table("small_audio_data.csv", trimmed_data, [0, 1, 2, 3, 4, 6, 7, 9, 10, 12, 13])
+    
+    # normalize duration (new index = 2), loudness (new index = 6), tempo (new index = 8)
+    duration = utils.get_column(trimmed_data, 2)
+    normalized_duration = utils.normalize(duration)
+    loudness = utils.get_column(trimmed_data, 6)
+    normalized_loudness = utils.normalize(loudness)
+    tempo = utils.get_column(trimmed_data, 8)
+    normalized_tempo = utils.normalize(tempo)
+
+    # update table with normalized values
+    for i in range(len(trimmed_data)):
+        trimmed_data[i][2] = normalized_duration[i]
+        trimmed_data[i][6] = normalized_loudness[i]
+        trimmed_data[i][8] = normalized_tempo[i]
+
     # generate 10 stratified cross folds
     folds = utils.stratified_cross_folds(trimmed_data, 10)
     num_correct = 0
@@ -103,9 +109,9 @@ def main():
     print("Accuracy: " + str(accuracy * 100) + "%")
 
     # compare with scikit-learn kNN  
-    df = pd.read_csv("small_audio_data.csv")
-    X = np.array(df.ix[:, [0, 1, 3, 4, 6, 9, 12]]) # features
-    y = np.array(df.ix[:, 13]) # class label (popularity)
+    df = pd.DataFrame(trimmed_data)
+    X = np.array(df.ix[:, 0:9]) # features
+    y = np.array(df.ix[:, 10]) # class label (popularity)
 
     # discretize popularity
     y = [utils.discretize_popularity(val) for val in y]

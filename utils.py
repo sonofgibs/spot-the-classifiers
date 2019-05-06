@@ -8,8 +8,6 @@ Parameter table: the full table to grab the column from
 Parameter column_index: the number of column to grab
 Returns column: a table of all values from a singular column
 '''
-
-
 def get_column(table, column_index):
     column = []
     for row in table:
@@ -24,8 +22,6 @@ def get_column(table, column_index):
     Parameter filename: the name a file that will be open and read
     Parameter table: a table to hold the information in the file
     '''
-
-
 def read_file_to_table(filename, table, indices=None):
     infile = open(filename, "r")
     lines = infile.readlines()
@@ -52,8 +48,6 @@ def read_file_to_table(filename, table, indices=None):
     Converts string values to usable numeric values
     Parameter values: a list of values to be converted
     '''
-
-
 def convert_to_numeric(values):
     for i in range(len(values)):
         try:
@@ -135,23 +129,11 @@ def knn_classifier(train, test):
     return predicted_classes
 
 def discretize_popularity(val):
-    if val <= 10:
+    if val <= 25:
         return 1
-    elif val <= 20:
-        return 2
-    elif val <= 30:
-        return 3
-    elif val <= 40:
-        return 4
     elif val <= 50:
-        return 5
-    elif val <= 60:
-        return 6
-    elif val <= 70:
-        return 7
-    elif val <= 80:
-        return 8
-    elif val <= 90:
-        return 9
+        return 2
+    elif val <= 75:
+        return 3
     else:
-        return 10
+        return 4
