@@ -118,7 +118,7 @@ def main():
     # split into train and test
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
-    knn = KNeighborsClassifier(n_neighbors=5)
+    knn = KNeighborsClassifier(n_neighbors=8)
     knn.fit(X_train, y_train)
     prediction = knn.predict(X_test)
     print("Scikit-learn accuracy: " + str(round(accuracy_score(y_test, prediction) * 100, 2)) + "%")
