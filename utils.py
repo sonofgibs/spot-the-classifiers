@@ -107,12 +107,12 @@ def compute_distance(v1, v2):
     dist = math.sqrt(sum([(v1[i] - v2[i]) ** 2 for i in range(len(v1))]))
     return dist
 
-# compare with 5 nearest neighbors (k=5)
+# compare with 8 nearest neighbors (k=8)
 def compute_class_knn(instance, vals):
     distances_and_label = [[compute_distance(val[:-1], instance[:-1]), val[-1]] for val in vals]
     distances_and_label.sort(key=lambda x: x[0]) # Sort by distance
-    top_5 = [x[1] for x in distances_and_label[1:6]] # Exclude first value (test instance itself)
-    predicted_class = max(set(top_5), key=top_5.count)
+    top_8 = [x[1] for x in distances_and_label[1:9]] # Exclude first value (test instance itself)
+    predicted_class = max(set(top_8), key=top_8.count)
     return predicted_class
 
 def normalize(vals):

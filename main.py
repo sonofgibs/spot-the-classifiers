@@ -89,32 +89,31 @@ def main():
     normalized_tempo = utils.normalize(tempo)
 
     # update table with normalized values
+    # and discretize popularity
     for i in range(len(trimmed_data)):
         trimmed_data[i][2] = normalized_duration[i]
         trimmed_data[i][6] = normalized_loudness[i]
         trimmed_data[i][8] = normalized_tempo[i]
+        trimmed_data[i][-1] = utils.discretize_popularity(trimmed_data[i][-1])
 
     # generate 10 stratified cross folds
     folds = utils.stratified_cross_folds(trimmed_data, 10)
     num_correct = 0
     for i in range(0, 10):
         train, test = utils.set_up_train_test(i, folds)
-        actual_popularities = [utils.discretize_popularity(x[-1]) for x in test]
+        actual_popularities = [x[-1] for x in test]
         predicted_popularities = utils.knn_classifier(train, test)
         for i in range(0, len(test)):
-            if actual_popularities[i] == utils.discretize_popularity(predicted_popularities[i]):
+            if actual_popularities[i] == predicted_popularities[i]:
                 num_correct += 1
         print(num_correct)
     accuracy = num_correct / len(trimmed_data)
-    print("Accuracy: " + str(accuracy * 100) + "%")
+    print("Accuracy: " + str(round(accuracy * 100, 2)) + "%")
 
     # compare with scikit-learn kNN  
     df = pd.DataFrame(trimmed_data)
     X = np.array(df.ix[:, 0:9]) # features
     y = np.array(df.ix[:, 10]) # class label (popularity)
-
-    # discretize popularity
-    y = [utils.discretize_popularity(val) for val in y]
 
     # split into train and test
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
