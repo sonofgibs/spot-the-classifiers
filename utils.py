@@ -1,5 +1,6 @@
 import random
 import math
+import numpy as np
 
 '''
 FROM CLASS
@@ -137,3 +138,50 @@ def discretize_popularity(val):
         return 3
     else:
         return 4
+
+# Naive Bayes helper functions
+# =========================================================
+def compute_probabilities(table):
+    num_rows = len(table)
+    classes = get_column(table, -1)
+    priors = {}
+    for c in classes:
+        if c in priors:
+            priors[c] += 1
+        else:
+            priors[c] = 1
+    # Divide by number of instances:
+    for key in priors:
+        priors[key] /= num_rows
+    return priors
+
+def naive_bayes_classifier(priors, test, table):
+    classes = list(priors.keys())
+    probabilities = {}
+    for c in classes:
+        probability = priors[c]
+        for i in range(0, len(test)):
+            # Calculate the Gaussian posterior for each attribute
+            # Class label = last attribute (index = -1)
+            mean, std = mean_std_att(table, index=i, class_label=c, class_index=-1) 
+            posterior = gaussian(test[i], mean, std)
+            probability *= posterior
+        probabilities[c] = probability
+    predicted_class = max(probabilities.items(), key=lambda x: x[1])
+    return predicted_class[0]
+
+def gaussian(x, mean, sdev):
+  first, second = 0, 0
+  if sdev > 0:
+      first = 1 / (math.sqrt(2 * math.pi) * sdev)
+      second = math.e ** (-((x - mean) ** 2) / (2 * (sdev ** 2)))
+  return first * second
+
+def mean_std_att(table, index, class_label, class_index):
+    vals = []
+    for row in table:
+        if row[class_index] == class_label:
+            vals.append(row[index])
+    mean = np.average(vals)
+    std = np.std(vals)
+    return mean, std

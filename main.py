@@ -103,12 +103,29 @@ def main():
         train, test = utils.set_up_train_test(i, folds)
         actual_popularities = [x[-1] for x in test]
         predicted_popularities = utils.knn_classifier(train, test)
-        for i in range(0, len(test)):
+        for i in range(len(test)):
             if actual_popularities[i] == predicted_popularities[i]:
                 num_correct += 1
         print(num_correct)
     accuracy = num_correct / len(trimmed_data)
     print("Accuracy: " + str(round(accuracy * 100, 2)) + "%")
+
+    # naive bayes
+    num_correct_bayes = 0
+    for i in range (0, 10):
+        train, test = utils.set_up_train_test(i, folds)
+        priors = utils.compute_probabilities(train)
+        actual_popularities_bayes = [x[-1] for x in test]
+        predicted_popularities_bayes = []
+        for instance in test:
+            predicted_popularity_bayes = utils.naive_bayes_classifier(priors, instance, train)
+            predicted_popularities_bayes.append(predicted_popularity_bayes)
+        for i in range(len(test)):
+            if actual_popularities_bayes[i] == predicted_popularities_bayes[i]:
+                num_correct_bayes += 1
+        print(num_correct_bayes)
+    accuracy_bayes = num_correct_bayes / len(trimmed_data)
+    print("Accuracy Naive Bayes: " + str(round(accuracy_bayes * 100, 2)) + "%")
 
     # compare with scikit-learn kNN  
     df = pd.DataFrame(trimmed_data)
