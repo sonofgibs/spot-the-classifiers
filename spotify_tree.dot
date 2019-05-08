@@ -1,0 +1,389 @@
+strict graph "" {
+	node [label="\N"];
+	acousticness0	 [label=Acousticness,
+		shape=diamond];
+	valence0	 [label=Valence,
+		shape=diamond];
+	acousticness0 -- valence0	 [label=">=0.25"];
+	speechiness37	 [label=Speechiness,
+		shape=diamond];
+	acousticness0 -- speechiness37	 [label=">=0.50"];
+	energy66	 [label=Energy,
+		shape=diamond];
+	acousticness0 -- energy66	 [label=">=0.75"];
+	energy95	 [label=Energy,
+		shape=diamond];
+	acousticness0 -- energy95	 [label=">=1.0"];
+	energy0	 [label=Energy,
+		shape=diamond];
+	valence0 -- energy0	 [label=">=0.25"];
+	233	 [label=2,
+		shape=box];
+	valence0 -- 233	 [label=">=0.50"];
+	234	 [label=2,
+		shape=box];
+	valence0 -- 234	 [label=">=0.75"];
+	135	 [label=1,
+		shape=box];
+	valence0 -- 135	 [label=">=1.0"];
+	danceability0	 [label=Danceability,
+		shape=diamond];
+	energy0 -- danceability0	 [label=">=0.25"];
+	danceability5	 [label=Danceability,
+		shape=diamond];
+	energy0 -- danceability5	 [label=">=0.50"];
+	danceability14	 [label=Danceability,
+		shape=diamond];
+	energy0 -- danceability14	 [label=">=0.75"];
+	liveness19	 [label=Liveness,
+		shape=diamond];
+	energy0 -- liveness19	 [label=">=1.0"];
+	10	 [label=1,
+		shape=box];
+	danceability0 -- 10	 [label=">=0.25"];
+	11	 [label=1,
+		shape=box];
+	danceability0 -- 11	 [label=">=0.50"];
+	12	 [label=1,
+		shape=box];
+	danceability0 -- 12	 [label=">=0.75"];
+	13	 [label=1,
+		shape=box];
+	danceability0 -- 13	 [label=">=1.0"];
+	25	 [label=2,
+		shape=box];
+	danceability5 -- 25	 [label=">=0.25"];
+	instrumentalness6	 [label=Instrumentalness,
+		shape=diamond];
+	danceability5 -- instrumentalness6	 [label=">=0.50"];
+	211	 [label=2,
+		shape=box];
+	danceability5 -- 211	 [label=">=0.75"];
+	212	 [label=2,
+		shape=box];
+	danceability5 -- 212	 [label=">=1.0"];
+	26	 [label=2,
+		shape=box];
+	instrumentalness6 -- 26	 [label=">=0.25"];
+	17	 [label=1,
+		shape=box];
+	instrumentalness6 -- 17	 [label=">=0.50"];
+	28	 [label=2,
+		shape=box];
+	instrumentalness6 -- 28	 [label=">=0.75"];
+	29	 [label=2,
+		shape=box];
+	instrumentalness6 -- 29	 [label=">=1.0"];
+	114	 [label=1,
+		shape=box];
+	danceability14 -- 114	 [label=">=0.25"];
+	115	 [label=1,
+		shape=box];
+	danceability14 -- 115	 [label=">=0.50"];
+	216	 [label=2,
+		shape=box];
+	danceability14 -- 216	 [label=">=0.75"];
+	217	 [label=2,
+		shape=box];
+	danceability14 -- 217	 [label=">=1.0"];
+	danceability19	 [label=Danceability,
+		shape=diamond];
+	liveness19 -- danceability19	 [label=">=0.25"];
+	128	 [label=1,
+		shape=box];
+	liveness19 -- 128	 [label=">=0.50"];
+	129	 [label=1,
+		shape=box];
+	liveness19 -- 129	 [label=">=0.75"];
+	230	 [label=2,
+		shape=box];
+	liveness19 -- 230	 [label=">=1.0"];
+	119	 [label=1,
+		shape=box];
+	danceability19 -- 119	 [label=">=0.25"];
+	120	 [label=1,
+		shape=box];
+	danceability19 -- 120	 [label=">=0.50"];
+	instrumentalness21	 [label=Instrumentalness,
+		shape=diamond];
+	danceability19 -- instrumentalness21	 [label=">=0.75"];
+	226	 [label=2,
+		shape=box];
+	danceability19 -- 226	 [label=">=1.0"];
+	221	 [label=2,
+		shape=box];
+	instrumentalness21 -- 221	 [label=">=0.25"];
+	222	 [label=2,
+		shape=box];
+	instrumentalness21 -- 222	 [label=">=0.50"];
+	123	 [label=1,
+		shape=box];
+	instrumentalness21 -- 123	 [label=">=0.75"];
+	124	 [label=1,
+		shape=box];
+	instrumentalness21 -- 124	 [label=">=1.0"];
+	valence37	 [label=Valence,
+		shape=diamond];
+	speechiness37 -- valence37	 [label=">=0.25"];
+	energy58	 [label=Energy,
+		shape=diamond];
+	speechiness37 -- energy58	 [label=">=0.50"];
+	263	 [label=2,
+		shape=box];
+	speechiness37 -- 263	 [label=">=0.75"];
+	164	 [label=1,
+		shape=box];
+	speechiness37 -- 164	 [label=">=1.0"];
+	energy37	 [label=Energy,
+		shape=diamond];
+	valence37 -- energy37	 [label=">=0.25"];
+	energy42	 [label=Energy,
+		shape=diamond];
+	valence37 -- energy42	 [label=">=0.50"];
+	energy51	 [label=Energy,
+		shape=diamond];
+	valence37 -- energy51	 [label=">=0.75"];
+	156	 [label=1,
+		shape=box];
+	valence37 -- 156	 [label=">=1.0"];
+	237	 [label=2,
+		shape=box];
+	energy37 -- 237	 [label=">=0.25"];
+	238	 [label=2,
+		shape=box];
+	energy37 -- 238	 [label=">=0.50"];
+	239	 [label=2,
+		shape=box];
+	energy37 -- 239	 [label=">=0.75"];
+	240	 [label=2,
+		shape=box];
+	energy37 -- 240	 [label=">=1.0"];
+	142	 [label=1,
+		shape=box];
+	energy42 -- 142	 [label=">=0.25"];
+	danceability43	 [label=Danceability,
+		shape=diamond];
+	energy42 -- danceability43	 [label=">=0.50"];
+	248	 [label=2,
+		shape=box];
+	energy42 -- 248	 [label=">=0.75"];
+	249	 [label=2,
+		shape=box];
+	energy42 -- 249	 [label=">=1.0"];
+	143	 [label=1,
+		shape=box];
+	danceability43 -- 143	 [label=">=0.25"];
+	144	 [label=1,
+		shape=box];
+	danceability43 -- 144	 [label=">=0.50"];
+	245	 [label=2,
+		shape=box];
+	danceability43 -- 245	 [label=">=0.75"];
+	246	 [label=2,
+		shape=box];
+	danceability43 -- 246	 [label=">=1.0"];
+	251	 [label=2,
+		shape=box];
+	energy51 -- 251	 [label=">=0.25"];
+	152	 [label=1,
+		shape=box];
+	energy51 -- 152	 [label=">=0.50"];
+	153	 [label=1,
+		shape=box];
+	energy51 -- 153	 [label=">=0.75"];
+	154	 [label=1,
+		shape=box];
+	energy51 -- 154	 [label=">=1.0"];
+	258	 [label=2,
+		shape=box];
+	energy58 -- 258	 [label=">=0.25"];
+	259	 [label=2,
+		shape=box];
+	energy58 -- 259	 [label=">=0.50"];
+	260	 [label=2,
+		shape=box];
+	energy58 -- 260	 [label=">=0.75"];
+	261	 [label=2,
+		shape=box];
+	energy58 -- 261	 [label=">=1.0"];
+	danceability66	 [label=Danceability,
+		shape=diamond];
+	energy66 -- danceability66	 [label=">=0.25"];
+	danceability75	 [label=Danceability,
+		shape=diamond];
+	energy66 -- danceability75	 [label=">=0.50"];
+	valence84	 [label=Valence,
+		shape=diamond];
+	energy66 -- valence84	 [label=">=0.75"];
+	liveness89	 [label=Liveness,
+		shape=diamond];
+	energy66 -- liveness89	 [label=">=1.0"];
+	instrumentalness66	 [label=Instrumentalness,
+		shape=diamond];
+	danceability66 -- instrumentalness66	 [label=">=0.25"];
+	171	 [label=1,
+		shape=box];
+	danceability66 -- 171	 [label=">=0.50"];
+	272	 [label=2,
+		shape=box];
+	danceability66 -- 272	 [label=">=0.75"];
+	273	 [label=2,
+		shape=box];
+	danceability66 -- 273	 [label=">=1.0"];
+	166	 [label=1,
+		shape=box];
+	instrumentalness66 -- 166	 [label=">=0.25"];
+	167	 [label=1,
+		shape=box];
+	instrumentalness66 -- 167	 [label=">=0.50"];
+	168	 [label=1,
+		shape=box];
+	instrumentalness66 -- 168	 [label=">=0.75"];
+	169	 [label=1,
+		shape=box];
+	instrumentalness66 -- 169	 [label=">=1.0"];
+	175	 [label=1,
+		shape=box];
+	danceability75 -- 175	 [label=">=0.25"];
+	liveness76	 [label=Liveness,
+		shape=diamond];
+	danceability75 -- liveness76	 [label=">=0.50"];
+	281	 [label=2,
+		shape=box];
+	danceability75 -- 281	 [label=">=0.75"];
+	282	 [label=2,
+		shape=box];
+	danceability75 -- 282	 [label=">=1.0"];
+	276	 [label=2,
+		shape=box];
+	liveness76 -- 276	 [label=">=0.25"];
+	277	 [label=2,
+		shape=box];
+	liveness76 -- 277	 [label=">=0.50"];
+	278	 [label=2,
+		shape=box];
+	liveness76 -- 278	 [label=">=0.75"];
+	279	 [label=2,
+		shape=box];
+	liveness76 -- 279	 [label=">=1.0"];
+	284	 [label=2,
+		shape=box];
+	valence84 -- 284	 [label=">=0.25"];
+	285	 [label=2,
+		shape=box];
+	valence84 -- 285	 [label=">=0.50"];
+	286	 [label=2,
+		shape=box];
+	valence84 -- 286	 [label=">=0.75"];
+	187	 [label=1,
+		shape=box];
+	valence84 -- 187	 [label=">=1.0"];
+	189	 [label=1,
+		shape=box];
+	liveness89 -- 189	 [label=">=0.25"];
+	290	 [label=2,
+		shape=box];
+	liveness89 -- 290	 [label=">=0.50"];
+	191	 [label=1,
+		shape=box];
+	liveness89 -- 191	 [label=">=0.75"];
+	192	 [label=1,
+		shape=box];
+	liveness89 -- 192	 [label=">=1.0"];
+	instrumentalness95	 [label=Instrumentalness,
+		shape=diamond];
+	energy95 -- instrumentalness95	 [label=">=0.25"];
+	valence112	 [label=Valence,
+		shape=diamond];
+	energy95 -- valence112	 [label=">=0.50"];
+	1121	 [label=1,
+		shape=box];
+	energy95 -- 1121	 [label=">=0.75"];
+	danceability122	 [label=Danceability,
+		shape=diamond];
+	energy95 -- danceability122	 [label=">=1.0"];
+	valence95	 [label=Valence,
+		shape=diamond];
+	instrumentalness95 -- valence95	 [label=">=0.25"];
+	1100	 [label=1,
+		shape=box];
+	instrumentalness95 -- 1100	 [label=">=0.50"];
+	1101	 [label=1,
+		shape=box];
+	instrumentalness95 -- 1101	 [label=">=0.75"];
+	valence102	 [label=Valence,
+		shape=diamond];
+	instrumentalness95 -- valence102	 [label=">=1.0"];
+	195	 [label=1,
+		shape=box];
+	valence95 -- 195	 [label=">=0.25"];
+	196	 [label=1,
+		shape=box];
+	valence95 -- 196	 [label=">=0.50"];
+	197	 [label=1,
+		shape=box];
+	valence95 -- 197	 [label=">=0.75"];
+	198	 [label=1,
+		shape=box];
+	valence95 -- 198	 [label=">=1.0"];
+	1102	 [label=1,
+		shape=box];
+	valence102 -- 1102	 [label=">=0.25"];
+	1103	 [label=1,
+		shape=box];
+	valence102 -- 1103	 [label=">=0.50"];
+	1104	 [label=1,
+		shape=box];
+	valence102 -- 1104	 [label=">=0.75"];
+	danceability105	 [label=Danceability,
+		shape=diamond];
+	valence102 -- danceability105	 [label=">=1.0"];
+	1105	 [label=1,
+		shape=box];
+	danceability105 -- 1105	 [label=">=0.25"];
+	1106	 [label=1,
+		shape=box];
+	danceability105 -- 1106	 [label=">=0.50"];
+	1107	 [label=1,
+		shape=box];
+	danceability105 -- 1107	 [label=">=0.75"];
+	2108	 [label=2,
+		shape=box];
+	danceability105 -- 2108	 [label=">=1.0"];
+	2112	 [label=2,
+		shape=box];
+	valence112 -- 2112	 [label=">=0.25"];
+	danceability113	 [label=Danceability,
+		shape=diamond];
+	valence112 -- danceability113	 [label=">=0.50"];
+	1118	 [label=1,
+		shape=box];
+	valence112 -- 1118	 [label=">=0.75"];
+	1119	 [label=1,
+		shape=box];
+	valence112 -- 1119	 [label=">=1.0"];
+	1113	 [label=1,
+		shape=box];
+	danceability113 -- 1113	 [label=">=0.25"];
+	1114	 [label=1,
+		shape=box];
+	danceability113 -- 1114	 [label=">=0.50"];
+	2115	 [label=2,
+		shape=box];
+	danceability113 -- 2115	 [label=">=0.75"];
+	2116	 [label=2,
+		shape=box];
+	danceability113 -- 2116	 [label=">=1.0"];
+	1122	 [label=1,
+		shape=box];
+	danceability122 -- 1122	 [label=">=0.25"];
+	2123	 [label=2,
+		shape=box];
+	danceability122 -- 2123	 [label=">=0.50"];
+	2124	 [label=2,
+		shape=box];
+	danceability122 -- 2124	 [label=">=0.75"];
+	1125	 [label=1,
+		shape=box];
+	danceability122 -- 1125	 [label=">=1.0"];
+}
