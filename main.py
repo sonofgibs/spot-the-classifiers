@@ -132,7 +132,6 @@ def main():
 
     folds = utils.stratified_cross_folds(tree_data, 10)
     num_correct = 0
-    total = 0
     for i in range(0, 10):  # range had to change
         train, test = utils.set_up_train_test(i, folds)
         actual_popularities = [x[-1] for x in test]
@@ -143,11 +142,11 @@ def main():
             if actual_popularities[i] == predicted_popularities[i]:
                 num_correct += 1
     accuracy = num_correct / len(trimmed_data)
-    print("Accuracy: " + str(round(accuracy * 100, 2)) + "%")
+    print("Accuracy Decision Tree: " + str(round(accuracy * 100, 2)) + "%")
 
     # generate 10 stratified cross folds
     folds = utils.stratified_cross_folds(trimmed_data, 10)
-    '''num_correct = 0
+    num_correct = 0
     for i in range(0, 10):
         train, test = utils.set_up_train_test(i, folds)
         actual_popularities = [x[-1] for x in test]
@@ -157,7 +156,7 @@ def main():
                 num_correct += 1
         print(num_correct)
     accuracy = num_correct / len(trimmed_data)
-    print("Accuracy: " + str(round(accuracy * 100, 2)) + "%")
+    print("Accuracy kNN: " + str(round(accuracy * 100, 2)) + "%")
 
     # naive bayes
     num_correct_bayes = 0
@@ -175,7 +174,7 @@ def main():
                 num_correct_bayes += 1
         print(num_correct_bayes)
     accuracy_bayes = num_correct_bayes / len(trimmed_data)
-    print("Accuracy Naive Bayes: " + str(round(accuracy_bayes * 100, 2)) + "%")'''
+    print("Accuracy Naive Bayes: " + str(round(accuracy_bayes * 100, 2)) + "%")
 
     # ensemble classifier (kNN)
     # generate five weak learners, each using a different subset of attributes
@@ -202,8 +201,6 @@ def main():
     accuracy_ensemble = num_correct_ensemble / len(trimmed_data)
     print("Accuracy ensemble kNN: " + str(round(accuracy_ensemble * 100, 2)) + "%")
         
-
-
     # compare with scikit-learn kNN
     df = pd.DataFrame(trimmed_data)
     X = np.array(df.ix[:, 0:9])  # features
@@ -215,9 +212,8 @@ def main():
     knn = KNeighborsClassifier(n_neighbors=8)
     knn.fit(X_train, y_train)
     prediction = knn.predict(X_test)
-    print("Scikit-learn accuracy: " +
+    print("Scikit-learn accuracy (kNN): " +
           str(round(accuracy_score(y_test, prediction) * 100, 2)) + "%")
-
 
 if __name__ == "__main__":
     main()

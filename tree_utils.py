@@ -1,7 +1,7 @@
 import utils
 import math
 import os
-from pygraphviz import *
+#from pygraphviz import *
 
 '''
 Creates a decision tree using TDIDT algorithm
@@ -353,7 +353,6 @@ Uses the tree to predict the class label for the instance
 Takes a decision tree (produced by tdidt()) and an instance to classify
 Returns the predicted label for the instance
 '''
-# returns Nonetype everytime
 
 
 def tdidt_classifier(unseen_instance, tree, header):
@@ -384,7 +383,6 @@ def get_range_value(value):
 def tree_classifier(train, test, att_indexes, att_domains, class_index, col_names):
     predicted_classes = []
     tree = tdidt(train, att_indexes, att_domains, class_index, col_names)
-    print(tree)
     for instance in test:
         predicted_class = tdidt_classifier(instance, tree, col_names)
         predicted_classes.append(predicted_class)
