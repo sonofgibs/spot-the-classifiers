@@ -1,3 +1,4 @@
+import random
 import matplotlib.pyplot as plt
 import numpy as np
 import utils
@@ -98,7 +99,7 @@ def main():
 
     # generate 10 stratified cross folds
     folds = utils.stratified_cross_folds(trimmed_data, 10)
-    num_correct = 0
+    '''num_correct = 0
     for i in range(0, 10):
         train, test = utils.set_up_train_test(i, folds)
         actual_popularities = [x[-1] for x in test]
@@ -125,7 +126,34 @@ def main():
                 num_correct_bayes += 1
         print(num_correct_bayes)
     accuracy_bayes = num_correct_bayes / len(trimmed_data)
-    print("Accuracy Naive Bayes: " + str(round(accuracy_bayes * 100, 2)) + "%")
+    print("Accuracy Naive Bayes: " + str(round(accuracy_bayes * 100, 2)) + "%")'''
+
+    # ensemble classifier (kNN)
+    # generate five weak learners, each using a different subset of attributes
+    num_correct_ensemble = 0
+    for i in range(10):
+        train, test = utils.set_up_train_test(i, folds)
+        actual_popularities = [x[-1] for x in test]
+        predicted_popularities = []
+        for instance in test:
+            predictions = []
+            for j in range(6):
+                # each classifier generates a prediction using a different training set
+                training_subset = train[j:j+4]
+                prediction = utils.compute_class_knn(instance, training_subset)
+                predictions.append(prediction)
+            # use simple majority voting
+            np_arr = np.array(predictions)
+            majority_vote = np.bincount(np_arr).argmax()
+            predicted_popularities.append(majority_vote)
+        for i in range(len(test)):
+            if predicted_popularities[i] == actual_popularities[i]:
+                num_correct_ensemble += 1
+        print(num_correct_ensemble)
+    accuracy_ensemble = num_correct_ensemble / len(trimmed_data)
+    print("Accuracy ensemble kNN: " + str(round(accuracy_ensemble * 100, 2)) + "%")
+        
+
 
     # compare with scikit-learn kNN  
     df = pd.DataFrame(trimmed_data)
