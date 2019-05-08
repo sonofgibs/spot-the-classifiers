@@ -3,12 +3,11 @@ import numpy as np
 import tree_utils
 import utils
 import numpy as np
-'''
 import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
-'''
+
 '''
 Converts string values to usable numeric values
 Parameter table: a single column table to be converted
@@ -145,9 +144,6 @@ def main():
     accuracy = num_correct / len(trimmed_data)
     print("Accuracy: " + str(round(accuracy * 100, 2)) + "%")
 
-
-'''
-
     # generate 10 stratified cross folds
     folds = utils.stratified_cross_folds(trimmed_data, 10)
     num_correct = 0
@@ -194,7 +190,6 @@ def main():
     print("Scikit-learn accuracy: " +
           str(round(accuracy_score(y_test, prediction) * 100, 2)) + "%")
 
-    '''
 
 if __name__ == "__main__":
     main()
