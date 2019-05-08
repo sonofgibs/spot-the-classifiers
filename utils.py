@@ -9,6 +9,8 @@ Parameter table: the full table to grab the column from
 Parameter column_index: the number of column to grab
 Returns column: a table of all values from a singular column
 '''
+
+
 def get_column(table, column_index):
     column = []
     for row in table:
@@ -17,12 +19,30 @@ def get_column(table, column_index):
     return column
 
 
+def get_frequencies(table, column_index):
+    column = sorted(get_column(table, column_index))
+    values = []
+    counts = []
+
+    for value in column:
+        if value not in values:
+            values.append(value)
+            # first time we have seen this value
+            counts.append(1)
+        else:  # we've seen it before, the list is sorted...
+            counts[-1] += 1
+
+    return values, counts
+
+
 '''
     FROM CLASS
     Opens a file and reads information to a file
     Parameter filename: the name a file that will be open and read
     Parameter table: a table to hold the information in the file
     '''
+
+
 def read_file_to_table(filename, table, indices=None):
     infile = open(filename, "r")
     lines = infile.readlines()
@@ -49,6 +69,8 @@ def read_file_to_table(filename, table, indices=None):
     Converts string values to usable numeric values
     Parameter values: a list of values to be converted
     '''
+
+
 def convert_to_numeric(values):
     for i in range(len(values)):
         try:
@@ -58,6 +80,7 @@ def convert_to_numeric(values):
         except ValueError:
             pass
 
+
 def randomize_table(table):
     randomized = table[:]
     n = len(table)
@@ -65,6 +88,7 @@ def randomize_table(table):
         j = random.randrange(0, n)
         randomized[i], randomized[j] = randomized[j], randomized[i]
     return randomized
+
 
 def stratified_cross_folds(table, k):
     # Generate k folds
@@ -81,13 +105,14 @@ def stratified_cross_folds(table, k):
     for i in range(0, k):
         fold = []
         folds.append(fold)
-    add_to = 0 # Index to add to (% k) to ensure roughly equal length folds
+    add_to = 0  # Index to add to (% k) to ensure roughly equal length folds
     for key in partitions:
         vals = partitions.get(key)
         for i in range(0, len(vals)):
             folds[add_to % k].append(vals[i])
             add_to += 1
     return folds
+
 
 def set_up_train_test(i, folds):
     test = folds[i]
@@ -103,18 +128,24 @@ def set_up_train_test(i, folds):
             flat_train.append(row)
     return flat_train, test
 
+
 def compute_distance(v1, v2):
     assert(len(v1) == len(v2))
     dist = math.sqrt(sum([(v1[i] - v2[i]) ** 2 for i in range(len(v1))]))
     return dist
 
 # compare with 8 nearest neighbors (k=8)
+
+
 def compute_class_knn(instance, vals):
-    distances_and_label = [[compute_distance(val[:-1], instance[:-1]), val[-1]] for val in vals]
-    distances_and_label.sort(key=lambda x: x[0]) # Sort by distance
-    top_8 = [x[1] for x in distances_and_label[1:9]] # Exclude first value (test instance itself)
+    distances_and_label = [
+        [compute_distance(val[:-1], instance[:-1]), val[-1]] for val in vals]
+    distances_and_label.sort(key=lambda x: x[0])  # Sort by distance
+    # Exclude first value (test instance itself)
+    top_8 = [x[1] for x in distances_and_label[1:9]]
     predicted_class = max(set(top_8), key=top_8.count)
     return predicted_class
+
 
 def normalize(vals):
     # (x - min(xs)) / ((max(xs) - min(xs)) * 1.0)
@@ -122,12 +153,14 @@ def normalize(vals):
     max_val = max(vals)
     return [round((x - min_val) / ((max_val - min_val) * 1.0), 4) for x in vals]
 
+
 def knn_classifier(train, test):
     predicted_classes = []
     for instance in test:
         predicted_class = compute_class_knn(instance, train)
         predicted_classes.append(predicted_class)
     return predicted_classes
+
 
 def discretize_popularity(val):
     if val <= 25:
@@ -141,6 +174,8 @@ def discretize_popularity(val):
 
 # Naive Bayes helper functions
 # =========================================================
+
+
 def compute_probabilities(table):
     num_rows = len(table)
     classes = get_column(table, -1)
@@ -155,6 +190,7 @@ def compute_probabilities(table):
         priors[key] /= num_rows
     return priors
 
+
 def naive_bayes_classifier(priors, test, table):
     classes = list(priors.keys())
     probabilities = {}
@@ -163,19 +199,22 @@ def naive_bayes_classifier(priors, test, table):
         for i in range(0, len(test)):
             # Calculate the Gaussian posterior for each attribute
             # Class label = last attribute (index = -1)
-            mean, std = mean_std_att(table, index=i, class_label=c, class_index=-1) 
+            mean, std = mean_std_att(
+                table, index=i, class_label=c, class_index=-1)
             posterior = gaussian(test[i], mean, std)
             probability *= posterior
         probabilities[c] = probability
     predicted_class = max(probabilities.items(), key=lambda x: x[1])
     return predicted_class[0]
 
+
 def gaussian(x, mean, sdev):
-  first, second = 0, 0
-  if sdev > 0:
-      first = 1 / (math.sqrt(2 * math.pi) * sdev)
-      second = math.e ** (-((x - mean) ** 2) / (2 * (sdev ** 2)))
-  return first * second
+    first, second = 0, 0
+    if sdev > 0:
+        first = 1 / (math.sqrt(2 * math.pi) * sdev)
+        second = math.e ** (-((x - mean) ** 2) / (2 * (sdev ** 2)))
+    return first * second
+
 
 def mean_std_att(table, index, class_label, class_index):
     vals = []
