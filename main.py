@@ -106,16 +106,11 @@ def main():
         trimmed_data[i][-1] = utils.discretize_popularity(trimmed_data[i][-1])
 
     # decision trees
-    tree_data = []
     # values for this tree are already between 0 and 1
-    utils.read_file_to_table("small_audio_data.csv", tree_data, [
-                             0, 1, 3, 4, 6, 9, 12, 13])
-    for i in range(len(tree_data)):
-        tree_data[i][-1] = utils.discretize_popularity(tree_data[i][-1])
-    col_names = ["acousticness", "danceability", "energy",
-                 "instrumentalness", "liveness", "speechiness", "valence", "popularity"]
-    labels = {"acousticness": "Acousticness", "danceability": "Danceability", "energy": "Energy", "instrumentalness": "Instrumentalness",
-              "liveness": "Liveness", "speechiness": "Speechiness", "valence": "Valence", "popularity": "Popularity"}
+    col_names = ["acousticness", "danceability", "duration", "energy",
+                 "instrumentalness", "liveness", "loudness", "speechiness", "tempo", "valence", "popularity"]
+    labels = {"acousticness": "Acousticness", "danceability": "Danceability", "duration": "Duration", "energy": "Energy", "instrumentalness": "Instrumentalness",
+              "liveness": "Liveness", "loudness": "Loudness", "speechiness": "Speechiness", "tempo": "Tempo", "valence": "Valence", "popularity": "Popularity"}
     att_domains = {0: [">=0.25", ">=0.50", ">=0.75", ">=1.0"],
                    1: [">=0.25", ">=0.50", ">=0.75", ">=1.0"],
                    2: [">=0.25", ">=0.50", ">=0.75", ">=1.0"],
@@ -123,14 +118,16 @@ def main():
                    4: [">=0.25", ">=0.50", ">=0.75", ">=1.0"],
                    5: [">=0.25", ">=0.50", ">=0.75", ">=1.0"],
                    6: [">=0.25", ">=0.50", ">=0.75", ">=1.0"],
-                   7: [">=25", ">=50", ">=75", ">=100"]}
+                   7: [">=0.25", ">=0.50", ">=0.75", ">=1.0"],
+                   8: [">=0.25", ">=0.50", ">=0.75", ">=1.0"],
+                   9: [">=0.25", ">=0.50", ">=0.75", ">=1.0"],
+                   10: [">=25", ">=50", ">=75", ">=100"]}
     class_index = len(col_names) - 1
     # att_indexes is a list of attributes to use for building the tree
     att_indexes = list(range(len(col_names) - 1))
     #spotify_tree = tree_utils.tdidt(tree_data, att_indexes, att_domains, class_index, col_names)
     #tree_utils.create_dot_tree(spotify_tree, labels, "spotify_tree")
-
-    folds = utils.stratified_cross_folds(tree_data, 10)
+    folds = utils.stratified_cross_folds(trimmed_data, 10)
     num_correct = 0
     for i in range(0, 10):  # range had to change
         train, test = utils.set_up_train_test(i, folds)
