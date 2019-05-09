@@ -1,7 +1,7 @@
 # Spot the Classifiers
 
 This project implements multiple classifiers to predict song popularity based on song audio features. 
-The data used in this project (can be found on Kaggle)[https://www.kaggle.com/tomigelo/spotify-audio-features] and is from
+The data used in this project [can be found on Kaggle](https://www.kaggle.com/tomigelo/spotify-audio-features) and is from
 the Spotify Web API. The original dataset consists of 17 columns: artist name, track id, track name, 13 audio features, and song popularity.
 
 ## Motivation
