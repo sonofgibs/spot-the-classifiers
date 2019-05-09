@@ -194,10 +194,10 @@ def main():
         for i in range(len(test)):
             if predicted_popularities[i] == actual_popularities[i]:
                 num_correct_ensemble += 1
-        print(num_correct_ensemble)
     accuracy_ensemble = num_correct_ensemble / len(trimmed_data)
-    print("Accuracy ensemble kNN: " + str(round(accuracy_ensemble * 100, 2)) + "%")
-        
+    print("Accuracy ensemble kNN: " +
+          str(round(accuracy_ensemble * 100, 2)) + "%")
+
     # compare with scikit-learn kNN
     df = pd.DataFrame(trimmed_data)
     X = np.array(df.ix[:, 0:9])  # features
@@ -211,6 +211,7 @@ def main():
     prediction = knn.predict(X_test)
     print("Scikit-learn accuracy (kNN): " +
           str(round(accuracy_score(y_test, prediction) * 100, 2)) + "%")
+
 
 if __name__ == "__main__":
     main()
