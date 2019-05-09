@@ -183,7 +183,6 @@ def main():
         for instance in test:
             predictions = []
             for j in range(6):
-                # each classifier generates a prediction using a different training set
                 training_subset = train[j:j+4]
                 prediction = utils.compute_class_knn(instance, training_subset)
                 predictions.append(prediction)
@@ -200,8 +199,8 @@ def main():
 
     # compare with scikit-learn kNN
     df = pd.DataFrame(trimmed_data)
-    X = np.array(df.ix[:, 0:9])  # features
-    y = np.array(df.ix[:, 10])  # class label (popularity)
+    X = np.array(df.loc[:, 0:9])  # features
+    y = np.array(df.loc[:, 10])  # class label (popularity)
 
     # split into train and test
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)

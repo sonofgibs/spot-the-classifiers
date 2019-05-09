@@ -1,7 +1,7 @@
 import utils
 import math
 import os
-from pygraphviz import *
+# from pygraphviz import *
 
 '''
 Creates a decision tree using TDIDT algorithm
